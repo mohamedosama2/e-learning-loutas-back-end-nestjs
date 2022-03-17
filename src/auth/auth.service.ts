@@ -40,6 +40,7 @@ export class AuthService {
     // } as CreateQuery<UserDocument>);
     user = await this.userRepository.createDoc({
       ...registerationData,
+     /*  role: 'teacher', */
       role: 'student',
     } as User);
     return user;

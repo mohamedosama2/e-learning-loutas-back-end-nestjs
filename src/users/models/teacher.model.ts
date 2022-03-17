@@ -8,7 +8,7 @@ export type TeacherDocument = Teacher & Document;
 export class Teacher {
   role: UserRole;
 
-  @Prop({ required: true })
+  @Prop()
   bio: number;
 }
 

@@ -67,7 +67,7 @@ export class User {
   @Prop()
   password: string;
 
-  @Prop({ default: false })
+  @Prop({ default: true })//false
   enabled: boolean;
 
   @Prop()

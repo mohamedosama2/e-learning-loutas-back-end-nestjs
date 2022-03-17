@@ -79,4 +79,18 @@ export abstract class BaseAbstractRepository<T> {
     await doc.set(updateQuery).save();
     return doc;
   }
+
+  public async findOneAndUpdate(
+    filterQuery: FilterQuery<TDocument<T>>,
+    updateQuery: UpdateQuery<TDocument<T>>,
+    options: QueryOptions = {},
+  ): Promise<TDocument<T>> {
+    const doc = await this.model.findOneAndUpdate(
+      filterQuery,
+      updateQuery,
+      options,
+    );
+    if (!doc) throw new NotFoundException(`${this.model.modelName} not found`);
+    return doc;
+  }
 }
