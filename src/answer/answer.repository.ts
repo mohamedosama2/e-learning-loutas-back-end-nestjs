@@ -110,7 +110,7 @@ export class AnswerRepository extends BaseAbstractRepository<Answer> {
       },
       {
         $project: {
-          'docs.questions.rightAsnwer': 0,
+        
           'docs.test.questions.rightAsnwer': 0,
           _id: 0,
           ids: 0,
