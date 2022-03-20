@@ -112,6 +112,18 @@ export class AnswerRepository extends BaseAbstractRepository<Answer> {
         $project: {
           'docs.questions.rightAsnwer': 0,
           'docs.test.questions.rightAsnwer': 0,
+          _id: 0,
+          ids: 0,
+          'docs._id': 0,
+          'docs.testId': 0,
+          'docs.student': 0,
+          'docs.__v': 0,
+          'docs.test._id': 0,
+          'docs.test.startDate': 0,
+          'docs.test.duration': 0,
+          'docs.test.teacher': 0,
+          'docs.test.__v': 0,
+          'docs.questions': 0,
         },
       },
     ]);
@@ -259,7 +271,7 @@ export class AnswerRepository extends BaseAbstractRepository<Answer> {
           }, */
         },
       },
-      { $addFields: { precentage: { $divide: ["$myDegree","$fullDegree"] } } },
+      { $addFields: { precentage: { $divide: ['$myDegree', '$fullDegree'] } } },
     ]);
   }
 }
