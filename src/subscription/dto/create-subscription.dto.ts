@@ -6,8 +6,14 @@ export class CreateSubscriptionDto {
   @IsNotEmpty()
   duration: string;
 
-  @IsEnum(SubscriptionType)
-  kind: SubscriptionType;
+  @IsString()
+  kind: string;
+
+  @IsString()
+  info: string;
+
+  @IsString()
+  description: string;
 
   @IsNumber()
   @IsNotEmpty()

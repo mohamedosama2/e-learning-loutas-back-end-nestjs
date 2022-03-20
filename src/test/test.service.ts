@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { FilterQuery, PaginateResult, QueryOptions } from 'mongoose';
+import { UserDocument } from 'src/users/models/_user.model';
 import { PaginationParams } from 'src/utils/pagination/paginationParams.dto';
 import { CreateTestDto } from './dto/create-test.dto';
 import { UpdateTestDto } from './dto/update-test.dto';
@@ -20,6 +21,10 @@ export class TestService {
       populate: 'teacher',
       projection: { questions: 0 },
     });
+  }
+
+  async fetchAllTestsGroupedbyTeacher(me: UserDocument) {
+    return await this.TestRepository.fetchAllTestsGroupedbyTeacher(me);
   }
 
   async findOne(filter: FilterQuery<TestDocument>, options: QueryOptions = {}) {

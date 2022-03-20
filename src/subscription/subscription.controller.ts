@@ -28,9 +28,12 @@ import { PaginationParams } from 'src/utils/pagination/paginationParams.dto';
 import { CreateQuery, PaginateResult } from 'mongoose';
 import ParamsWithId from 'src/utils/paramsWithId.dto';
 import { Public } from 'src/auth/decorators/public.decorator';
+import { Roles } from 'src/auth/decorators/roles.decorator';
+import { UserDocument, UserRole } from 'src/users/models/_user.model';
+import { AuthUser } from 'src/auth/decorators/me.decorator';
 
 @ApiTags('subscription'.toUpperCase())
-/* @ApiBearerAuth() */
+@ApiBearerAuth()
 @Controller('subscription')
 export class SubscriptionController {
   constructor(private readonly subscriptionService: SubscriptionService) {}
@@ -50,6 +53,42 @@ export class SubscriptionController {
     @Query() FilterQuerySubscriptions: PaginationParams,
   ): Promise<PaginateResult<SubscriptionDocument> | SubscriptionDocument[]> {
     return await this.subscriptionService.findAll(FilterQuerySubscriptions);
+  }
+
+  @Roles(UserRole.STUDENT)
+  @Get('/mySubscriptopns')
+  async mySubscriptopns(@AuthUser() me: UserDocument) {
+    return await this.subscriptionService.fetchSubsciptions(
+      { students: me._id },
+      {},
+    );
+  }
+
+  @Roles(UserRole.STUDENT)
+  @Get('/otherSubscriptopns')
+  async otherSubscriptopns(@AuthUser() me: UserDocument) {
+    return await this.subscriptionService.fetchSubsciptions(
+      { students: { $ne: me._id } },
+      {},
+    );
+  }
+
+  @Roles(UserRole.STUDENT)
+  @Post('/addSubscribtion/:id')
+  async addSubscibe(
+    @Param() { id }: ParamsWithId,
+    @AuthUser() me: UserDocument,
+  ) {
+    return await this.subscriptionService.addSubscibe({ _id: id }, me);
+  }
+
+  @Roles(UserRole.STUDENT)
+  @Post('/removeSubscribtion/:id')
+  async removeSubscibe(
+    @Param() { id }: ParamsWithId,
+    @AuthUser() me: UserDocument,
+  ) {
+    return await this.subscriptionService.removeSubscibe({ _id: id }, me);
   }
 
   @Get(':id')

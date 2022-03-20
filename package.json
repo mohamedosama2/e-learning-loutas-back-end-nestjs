@@ -49,6 +49,7 @@
     "morgan": "^1.10.0",
     "multer": "^1.4.3",
     "multer-storage-cloudinary": "^2.2.1",
+    "nestjs-joi": "^1.7.0",
     "nestjs-twilio": "^2.1.0",
     "passport": "^0.5.0",
     "passport-google-oauth20": "^2.0.0",

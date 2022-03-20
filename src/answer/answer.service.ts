@@ -140,6 +140,21 @@ export class AnswerService {
   } */
 
   async findDegree(testId: string, me: UserDocument) {
+    const test = await this.TestService.findOne(
+      { _id: testId },
+      { projection: { questions: 0 } },
+    );
+    console.log(test);
+
+    const isAfterTestTime = moment().isAfter(
+      moment(new Date(test.startDate)).add(parseInt(test.duration), 'minutes'),
+    );
+    console.log(isAfterTestTime);
+    console.log(moment());
+    console.log(moment(new Date(test.startDate)));
+
+        if (!isAfterTestTime)
+      throw new BadRequestException('you cant fetch degree now'); 
     return await this.AnswerRepository.findDgree(testId, me);
   }
 
