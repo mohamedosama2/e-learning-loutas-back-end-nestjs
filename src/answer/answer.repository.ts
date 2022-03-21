@@ -71,6 +71,7 @@ export class AnswerRepository extends BaseAbstractRepository<Answer> {
         $unionWith: {
           coll: 'tests',
           pipeline: [
+            {_id:new Types.ObjectId(testId)},
             {
               $unwind: { path: '$questions', preserveNullAndEmptyArrays: true },
             },
