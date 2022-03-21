@@ -18,6 +18,7 @@ import { Test, TestDocument } from './entities/test.entity';
 import { ApiPaginatedResponse } from 'src/utils/pagination/apiPaginatedResponse';
 import { PaginationParams } from 'src/utils/pagination/paginationParams.dto';
 import { AuthUser } from 'src/auth/decorators/me.decorator';
+import ParamsWithId from 'src/utils/paramsWithId.dto';
 
 @ApiTags('test'.toUpperCase())
 @ApiBearerAuth()
@@ -36,6 +37,12 @@ export class TestController {
   @ApiPaginatedResponse(Test)
   async findAll(@Query() paginatedParams: PaginationParams) {
     return await this.testService.findAll(paginatedParams);
+  }
+
+  @Get('/fetchTest/:id')
+  @Roles(UserRole.STUDENT)
+  async fetchTest(@Param() { id }: ParamsWithId, @AuthUser() me: UserDocument) {
+    return this.testService.fetchTest(me, id);
   }
 
   @Get('/testByTecher')

@@ -27,6 +27,10 @@ export class TestService {
     return await this.TestRepository.fetchAllTestsGroupedbyTeacher(me);
   }
 
+  async fetchTest(me: UserDocument, testId: string) {
+    return this.TestRepository.fetchTest(me, testId);
+  }
+
   async findOne(filter: FilterQuery<TestDocument>, options: QueryOptions = {}) {
     return await this.TestRepository.findOne(filter, options);
   }
