@@ -71,7 +71,7 @@ export class AnswerRepository extends BaseAbstractRepository<Answer> {
         $unionWith: {
           coll: 'tests',
           pipeline: [
-            { $match: { _id: new Types.ObjectId(testId) } },
+             { $match: { _id: new Types.ObjectId(testId) } },
             {
               $unwind: { path: '$questions', preserveNullAndEmptyArrays: true },
             },
