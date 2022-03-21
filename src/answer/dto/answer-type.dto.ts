@@ -11,10 +11,10 @@ export class AnswerTypeDto {
   rightAnswer?: string | boolean;
 
   @IsString()
+  @IsOptional()
   question?: string;
 
   @IsMongoId()
   @IsNotEmpty()
   qId: Questions | string;
 }
- 
