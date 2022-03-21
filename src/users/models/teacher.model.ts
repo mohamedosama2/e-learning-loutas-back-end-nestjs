@@ -10,6 +10,9 @@ export class Teacher {
 
   @Prop()
   bio: number;
+
+  @Prop()
+  lang: string;
 }
 
 const TeacherSchema = SchemaFactory.createForClass(Teacher);

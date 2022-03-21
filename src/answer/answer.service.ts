@@ -52,8 +52,8 @@ export class AnswerService {
     );
     /*    console.log(Test); */
     const isBetweenTestTime = moment().isBetween(
-      moment(Test.startDate),
-      moment(Test.startDate).add(parseInt(Test.duration), 'minutes'),
+      moment(new Date(Test.startDate)),
+      moment(new Date(Test.startDate)).add(parseInt(Test.duration), 'minutes'),
     );
 
     if (!isBetweenTestTime) throw new BadRequestException();
