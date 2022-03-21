@@ -56,6 +56,8 @@ export class AnswerService {
       moment(new Date(Test.startDate)).add(parseInt(Test.duration), 'minutes'),
     );
 
+    console.log(isBetweenTestTime);
+
     if (!isBetweenTestTime) throw new BadRequestException();
     const exists = await this.AnswerRepository.findOne(
       {
@@ -153,8 +155,8 @@ export class AnswerService {
     console.log(moment());
     console.log(moment(new Date(test.startDate)));
 
-        if (!isAfterTestTime)
-      throw new BadRequestException('you cant fetch degree now'); 
+    if (!isAfterTestTime)
+      throw new BadRequestException('you cant fetch degree now');
     return await this.AnswerRepository.findDgree(testId, me);
   }
 
@@ -165,6 +167,13 @@ export class AnswerService {
   }
 
   async findOne(testId: string, me: UserDocument) {
+    const Test = await this.TestService.findOne({ _id: testId });
+    const isBetweenTestTime = moment().isBetween(
+      moment(new Date(Test.startDate)),
+      moment(new Date(Test.startDate)).add(parseInt(Test.duration), 'minutes'),
+    );
+
+    if (!isBetweenTestTime) throw new BadRequestException();
     return await this.AnswerRepository.findTest(testId, me);
   }
 
