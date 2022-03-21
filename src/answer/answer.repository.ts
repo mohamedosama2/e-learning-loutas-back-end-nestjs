@@ -63,8 +63,8 @@ export class AnswerRepository extends BaseAbstractRepository<Answer> {
       {
         $group: {
           _id: null,
-          ids: { $push: '$answers.qId' },
-          docs: { $push: '$$ROOT' },
+             ids: { $push: '$answers.qId' },
+           docs: { $push: '$$ROOT' },
         },
       },
       {
